@@ -37,7 +37,7 @@
             // 2. Llamamos a TU servidor Python (Fetch)
             // Es como abrir una pestaña invisible en el navegador
             try {
-                let respuesta = await fetch(`http://localhost:8000/saldo/${usuario}`);
+                let respuesta = await fetch(`https://banco-ia-python.onrender.com/saldo/${usuario}`);
                 
                 // 3. Convertimos la respuesta de texto a JSON
                 let datos = await respuesta.json();
