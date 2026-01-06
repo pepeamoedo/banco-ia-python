@@ -52,7 +52,7 @@
 
             try {
                 // Fíjate que ahora usamos method: 'POST'
-                let respuesta = await fetch("https://banco-ia-python.onrender.com/transferir", {
+                let respuesta = await fetch("http://localhost/transferir", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(paquete) // Convertimos el objeto JS a texto JSON
@@ -84,7 +84,7 @@
             // 2. Llamamos a TU servidor Python (Fetch)
             // Es como abrir una pestaña invisible en el navegador
             try {
-                let respuesta = await fetch(`https://banco-ia-python.onrender.com/saldo/${usuario}`);
+                let respuesta = await fetch(`http://localhost/saldo/${usuario}`);
                 
                 // 3. Convertimos la respuesta de texto a JSON
                 let datos = await respuesta.json();
