@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Banco Online</title>
+    <style>
+        /* Un poco de maquillaje CSS para que no se vea feo */
+        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f0f2f5; }
+        .caja { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #resultado { margin-top: 20px; font-size: 1.5em; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="caja">
+        <h1>🏦 Banco Python</h1>
+        <p>Introduce tu usuario para ver el saldo:</p>
+        
+        <input type="text" id="usuarioInput" placeholder="Ej: pepe, maria...">
+        <button onclick="consultarAPI()">Consultar Saldo</button>
+
+        <div id="resultado">Waiting...</div>
+    </div>
+
+    <script>
+        // --- AQUÍ EMPIEZA LA MAGIA (JAVASCRIPT) ---
+        
+        async function consultarAPI() {
+            // 1. Leemos lo que has escrito en la caja
+            let usuario = document.getElementById("usuarioInput").value;
+            
+            if (!usuario) { alert("¡Escribe un nombre!"); return; }
+
+            // 2. Llamamos a TU servidor Python (Fetch)
+            // Es como abrir una pestaña invisible en el navegador
+            try {
+                let respuesta = await fetch(`http://localhost:8000/saldo/${usuario}`);
+                
+                // 3. Convertimos la respuesta de texto a JSON
+                let datos = await respuesta.json();
+
+                // 4. Pintamos el resultado en la pantalla
+                let mensaje = `Hola ${datos.usuario}, tienes <strong>${datos.saldo_actual} ${datos.moneda}</strong>`;
+                document.getElementById("resultado").innerHTML = mensaje;
+
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("resultado").innerText = "Error: El servidor no responde ☠️";
+            }
+        }
+    </script>
+</body>
+</html>
